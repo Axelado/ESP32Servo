@@ -7,27 +7,18 @@ class ESP32Servo {
 public:
     ESP32Servo();
 
-    // Set the PWM resolution (in bits)
-    static void setResolution(uint8_t resolutionBits);
-
-    // Set the PWM frequency (in Hz)
-    static void setFrequency(uint16_t frequencyHz);
-
-    // Attach the servo to a given pin and PWM channel
     void attach(uint8_t pin, uint8_t channel);
-
-    // Write the PWM pulse width in microseconds
-    void writeMicroseconds(uint16_t microseconds);
-
-    // Write an angle to the servo
     void write(int angle);
-    
-    // Read the current angle of the servo
+    void writeMicroseconds(uint16_t microseconds);
     int getAngle() const;
+
+    static void setResolution(uint8_t resolutionBits);
+    static void setFrequency(uint16_t frequencyHz);
 
 private:
     uint8_t _pin;
     uint8_t _channel;
+    int _angle;
 
     static uint8_t _resolutionBits;
     static uint16_t _frequencyHz;
