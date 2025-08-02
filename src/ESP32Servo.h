@@ -19,6 +19,12 @@ public:
     // Write the PWM pulse width in microseconds
     void writeMicroseconds(uint16_t microseconds);
 
+    // Write an angle to the servo
+    void write(int angle);
+    
+    // Read the current angle of the servo
+    int getAngle() const;
+
 private:
     uint8_t _pin;
     uint8_t _channel;

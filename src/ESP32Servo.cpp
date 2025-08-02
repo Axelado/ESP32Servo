@@ -34,3 +34,22 @@ void ESP32Servo::writeMicroseconds(uint16_t microseconds) {
 
     ledcWrite(_channel, duty);
 }
+
+void ESP32Servo::write(int angle) {
+    if (_pin == -1 || _channel == -1) return;
+
+    angle = constrain(angle, 0, 180);
+
+    // Calcule des rapports cycliques en fonction de la résolution
+    uint32_t max_duty = (1 << _resolution) - 1;
+    uint32_t dutyMin = max_duty * 0.025; // ~0.5 ms
+    uint32_t dutyMax = max_duty * 0.125; // ~2.5 ms
+
+    int duty = map(angle, 0, 180, dutyMin, dutyMax);
+    ledcWrite(_channel, duty);
+    _angle = angle;
+}
+
+int ESP32Servo::getAngle() const {
+    return _angle;
+}
